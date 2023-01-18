@@ -1,0 +1,96 @@
+﻿@page
+@model Solita2023Assignment.Pages.Stations.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].PublicStationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].NameFI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].NameSV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].AddressFI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].AddressSV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].CityFI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].CitySV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].Operator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].XCoordinate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Station[0].YCoordinate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Station) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublicStationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameFI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameSV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressFI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressSV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityFI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CitySV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Operator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.XCoordinate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YCoordinate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

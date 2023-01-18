@@ -361,3 +361,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# The .csv files used are over 100MB, so cannot be pushed to Git. Using Git Large Fire Storage
+# extension could solve this in some way, but we're just ignoring the files at this time.
+*.csv
+
+# The SQLite database will also be larger than 100MB, just create it if it doesn't exist.
+*.db

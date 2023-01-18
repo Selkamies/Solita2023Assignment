@@ -1,0 +1,84 @@
+﻿@page
+@model Solita2023Assignment.Pages.Stations.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Station</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Station.PublicStationId" class="control-label"></label>
+                <input asp-for="Station.PublicStationId" class="form-control" />
+                <span asp-validation-for="Station.PublicStationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.NameFI" class="control-label"></label>
+                <input asp-for="Station.NameFI" class="form-control" />
+                <span asp-validation-for="Station.NameFI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.NameSV" class="control-label"></label>
+                <input asp-for="Station.NameSV" class="form-control" />
+                <span asp-validation-for="Station.NameSV" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.AddressFI" class="control-label"></label>
+                <input asp-for="Station.AddressFI" class="form-control" />
+                <span asp-validation-for="Station.AddressFI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.AddressSV" class="control-label"></label>
+                <input asp-for="Station.AddressSV" class="form-control" />
+                <span asp-validation-for="Station.AddressSV" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.CityFI" class="control-label"></label>
+                <input asp-for="Station.CityFI" class="form-control" />
+                <span asp-validation-for="Station.CityFI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.CitySV" class="control-label"></label>
+                <input asp-for="Station.CitySV" class="form-control" />
+                <span asp-validation-for="Station.CitySV" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.Operator" class="control-label"></label>
+                <input asp-for="Station.Operator" class="form-control" />
+                <span asp-validation-for="Station.Operator" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.Capacity" class="control-label"></label>
+                <input asp-for="Station.Capacity" class="form-control" />
+                <span asp-validation-for="Station.Capacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.XCoordinate" class="control-label"></label>
+                <input asp-for="Station.XCoordinate" class="form-control" />
+                <span asp-validation-for="Station.XCoordinate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Station.YCoordinate" class="control-label"></label>
+                <input asp-for="Station.YCoordinate" class="form-control" />
+                <span asp-validation-for="Station.YCoordinate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

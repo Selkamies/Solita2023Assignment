@@ -1,7 +1,22 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Solita2023Assignment.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+//builder.Services.AddRazorPages();
+var mvcBuilder = builder.Services.AddRazorPages();
+
+// Use runtime compilation when developing, so we don't have to constantly rebuild when making small changes.
+if (builder.Environment.IsDevelopment())
+{
+    mvcBuilder.AddRazorRuntimeCompilation();
+}
+
+builder.Services.AddDbContext<Solita2023AssignmentContext>(options =>
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("Solita2023AssignmentContext") ?? throw new InvalidOperationException("Connection string 'Solita2023AssignmentContext' not found.")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("Solita2023AssignmentContext") ?? throw new InvalidOperationException("Connection string 'Solita2023AssignmentContext' not found.")));
 
 var app = builder.Build();
 
