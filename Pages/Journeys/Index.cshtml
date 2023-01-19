@@ -17,15 +17,13 @@
                 @Html.DisplayNameFor(model => model.Journey[0].DepartureTime)
             </th>
             <th>
-                @*TODO: The NameFi column of the departure station displays just "Nimi", which is not clear when looking
-                at journeys. Is there a better way to do this?*@
-                Departure Station
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Journey[0].ReturnTime)
             </th>
             <th>
-                Return Station
+                @Html.DisplayNameFor(model => model.Journey[0].DepartureStation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].ReturnStation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Journey[0].DistanceMeters)
@@ -43,16 +41,15 @@
                 @Html.DisplayFor(modelItem => item.DepartureTime)
             </td>
             <td>
-                if (item.DepartureStation.NameFI is not null)
-                {
-                    @Html.DisplayFor(modelItem => item.DepartureStation.NameFI)
-                }
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.ReturnTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReturnStation.NameFI)
+                @*@Html.DisplayFor(modelItem => item.DepartureStation.Id)*@
+                @Html.DisplayFor(modelItem => item.DepartureStation.NameFI)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.ReturnStation.Id)*@
+                @Html.DisplayFor(modelItem => item.DepartureStation.NameFI)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DistanceMeters)

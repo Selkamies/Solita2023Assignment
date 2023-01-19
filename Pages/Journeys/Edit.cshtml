@@ -15,6 +15,16 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Journey.Id" />
             <div class="form-group">
+                <label asp-for="Journey.DepartureStationId" class="control-label"></label>
+                <select asp-for="Journey.DepartureStationId" class="form-control" asp-items="ViewBag.DepartureStationId"></select>
+                <span asp-validation-for="Journey.DepartureStationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.ReturnStationId" class="control-label"></label>
+                <select asp-for="Journey.ReturnStationId" class="form-control" asp-items="ViewBag.ReturnStationId"></select>
+                <span asp-validation-for="Journey.ReturnStationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Journey.DepartureTime" class="control-label"></label>
                 <input asp-for="Journey.DepartureTime" class="form-control" />
                 <span asp-validation-for="Journey.DepartureTime" class="text-danger"></span>

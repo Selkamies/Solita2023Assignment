@@ -14,6 +14,14 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Journey.DepartureStationId" class="control-label"></label>
+                <select asp-for="Journey.DepartureStationId" class ="form-control" asp-items="ViewBag.DepartureStationId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Journey.ReturnStationId" class="control-label"></label>
+                <select asp-for="Journey.ReturnStationId" class ="form-control" asp-items="ViewBag.ReturnStationId"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="Journey.DepartureTime" class="control-label"></label>
                 <input asp-for="Journey.DepartureTime" class="form-control" />
                 <span asp-validation-for="Journey.DepartureTime" class="text-danger"></span>
@@ -33,6 +41,7 @@
                 <input asp-for="Journey.DurationSeconds" class="form-control" />
                 <span asp-validation-for="Journey.DurationSeconds" class="text-danger"></span>
             </div>
+            <!-- TODO: Saving doesn't work, just clears station selections. -->
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

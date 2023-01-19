@@ -14,8 +14,7 @@ namespace Solita2023Assignment.Data
         {
         }
 
-        public DbSet<Solita2023Assignment.Models.Station> Station { get; set; } = default!;
-
-        public DbSet<Solita2023Assignment.Models.Journey> Journey { get; set; } = default!;
+        public DbSet<Station> Station { get; set; } = default!;
+        public DbSet<Journey> Journey { get; set; } = default!;
     }
 }

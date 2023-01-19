@@ -25,7 +25,9 @@ namespace Solita2023Assignment.Pages.Journeys
         {
             if (_context.Journey != null)
             {
-                Journey = await _context.Journey.ToListAsync();
+                Journey = await _context.Journey
+                .Include(j => j.DepartureStation)
+                .Include(j => j.ReturnStation).ToListAsync();
             }
         }
     }

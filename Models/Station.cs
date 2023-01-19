@@ -31,39 +31,39 @@ namespace Solita2023Assignment.Models
         /// Finnish name of the station.
         /// </summary>
         [Display(Name = "Nimi")]
-        public string? NameFI { get; set; }
+        public string NameFI { get; set; } = string.Empty;
         /// <summary>
         /// Swedish name of the station.
         /// </summary>
         [Display(Name = "Namn")]
-        public string? NameSV { get; set; }
+        public string NameSV { get; set; } = string.Empty;
 
         /// <summary>
         /// Finnish address of the station.
         /// </summary>
         [Display(Name = "Osoite")]
-        public string? AddressFI { get; set; }
+        public string AddressFI { get; set; } = string.Empty;
         /// <summary>
         /// Swedish address of the station.
         /// </summary>
         [Display(Name = "Adress")]
-        public string? AddressSV { get; set; }
+        public string AddressSV { get; set; } = string.Empty;
 
         /// <summary>
         /// Finnish name of the city where the station is in.
         /// </summary>
         [Display(Name = "Kaupunki")]
-        public string? CityFI { get; set; }
+        public string CityFI { get; set; } = string.Empty;
         /// <summary>
         /// Swedish name of the city where the station is in.
         /// </summary>
         [Display(Name = "Stad")]
-        public string? CitySV { get; set; }
+        public string CitySV { get; set; } = string.Empty;
 
         /// <summary>
         /// Name of the company that operates the station.
         /// </summary>
-        public string? Operator { get; set; }
+        public string Operator { get; set; } = string.Empty;
         /// <summary>
         /// Maximum capacity for citybikes at the station.
         /// </summary>

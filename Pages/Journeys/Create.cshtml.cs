@@ -21,12 +21,21 @@ namespace Solita2023Assignment.Pages.Journeys
 
         public IActionResult OnGet()
         {
+            // Creates a dropdown list from stations, selection saves the database id of station,
+            // but displays the Finnish name of the station.
+            // TODO: Display both the name and public id of station?
+            //SelectList stationList = new SelectList(_context.Station, "Id", "NameFI");
+            SelectList stationList = new SelectList(items: _context.Station, 
+                                                    dataValueField: "Id", 
+                                                    dataTextField: "NameFI");
+            ViewData["DepartureStationId"] = stationList;
+            ViewData["ReturnStationId"] = stationList;
+
             return Page();
         }
 
         [BindProperty]
         public Journey Journey { get; set; } = default!;
-        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()

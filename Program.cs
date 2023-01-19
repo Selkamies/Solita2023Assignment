@@ -15,7 +15,6 @@ if (builder.Environment.IsDevelopment())
 }
 
 builder.Services.AddDbContext<Solita2023AssignmentContext>(options =>
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("Solita2023AssignmentContext") ?? throw new InvalidOperationException("Connection string 'Solita2023AssignmentContext' not found.")));
     options.UseSqlite(builder.Configuration.GetConnectionString("Solita2023AssignmentContext") ?? throw new InvalidOperationException("Connection string 'Solita2023AssignmentContext' not found.")));
 
 var app = builder.Build();

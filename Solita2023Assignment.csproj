@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <!-- "The scaffolding engine currently does not support nullable reference types, therefore the models used in scaffold can't either." -->
+	<Nullable>enable</Nullable> 
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>47edbc9a-0607-4fdc-854c-612a980b0376</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
@@ -22,8 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Backup\" />
     <Folder Include="CSV\" />
     <Folder Include="Database\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
