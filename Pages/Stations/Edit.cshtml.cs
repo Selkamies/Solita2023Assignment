@@ -30,7 +30,7 @@ namespace Solita2023Assignment.Pages.Stations
                 return NotFound();
             }
 
-            var station =  await _context.Station.FirstOrDefaultAsync(m => m.Id == id);
+            var station =  await _context.Station.FirstOrDefaultAsync(m => m.ID == id);
             if (station == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace Solita2023Assignment.Pages.Stations
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StationExists(Station.Id))
+                if (!StationExists(Station.ID))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace Solita2023Assignment.Pages.Stations
 
         private bool StationExists(int id)
         {
-          return (_context.Station?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Station?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

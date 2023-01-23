@@ -29,7 +29,7 @@ namespace Solita2023Assignment.Pages.Stations
                 return NotFound();
             }
 
-            var station = await _context.Station.FirstOrDefaultAsync(m => m.Id == id);
+            var station = await _context.Station.FirstOrDefaultAsync(m => m.ID == id);
 
             if (station == null)
             {

@@ -14,19 +14,24 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Journey[0].DepartureTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Journey[0].ReturnTime)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Journey[0].DepartureStation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Journey[0].ReturnStation)
+                @Html.DisplayNameFor(model => model.Journey[0].DepartureTime)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Journey[0].ArrivalStation)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Journey[0].ArrivalTime)
+            </th>
+
+            @*<th>
                 @Html.DisplayNameFor(model => model.Journey[0].DistanceMeters)
+            </th>*@
+            <th>
+                Distance (km)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Journey[0].DurationSeconds)
@@ -38,29 +43,29 @@
 @foreach (var item in Model.Journey) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.DepartureStation.NameFI)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DepartureTime)
             </td>
+
             <td>
-                @Html.DisplayFor(modelItem => item.ReturnTime)
+                @Html.DisplayFor(modelItem => item.ArrivalStation.NameFI)
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => item.DepartureStation.Id)*@
-                @Html.DisplayFor(modelItem => item.DepartureStation.NameFI)
+                @Html.DisplayFor(modelItem => item.ArrivalTime)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DistanceKilometers)
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => item.ReturnStation.Id)*@
-                @Html.DisplayFor(modelItem => item.DepartureStation.NameFI)
+                @Html.DisplayFor(modelItem => item.DurationMinutesAndSeconds)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DistanceMeters)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DurationSeconds)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
 }

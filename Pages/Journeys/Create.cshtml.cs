@@ -24,12 +24,11 @@ namespace Solita2023Assignment.Pages.Journeys
             // Creates a dropdown list from stations, selection saves the database id of station,
             // but displays the Finnish name of the station.
             // TODO: Display both the name and public id of station?
-            //SelectList stationList = new SelectList(_context.Station, "Id", "NameFI");
             SelectList stationList = new SelectList(items: _context.Station, 
-                                                    dataValueField: "Id", 
+                                                    dataValueField: "ID", 
                                                     dataTextField: "NameFI");
-            ViewData["DepartureStationId"] = stationList;
-            ViewData["ReturnStationId"] = stationList;
+            ViewData["DepartureStationID"] = stationList;
+            ViewData["ReturnStationID"] = stationList;
 
             return Page();
         }
@@ -40,8 +39,26 @@ namespace Solita2023Assignment.Pages.Journeys
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Journey == null || Journey == null)
+            //ModelState.Remove("ID");
+
+            if (!ModelState.IsValid || _context.Journey == null || Journey == null)
             {
+                if (!ModelState.IsValid)
+                {
+                    // TODO: We get here, and get error that station must be selected.
+                    System.Diagnostics.Debug.Print("ModelState is not valid.");
+                }
+
+                if (_context.Journey == null)
+                {
+                    System.Diagnostics.Debug.Print("_context.Journey is null.");
+                }
+
+                if (Journey == null)
+                {
+                    System.Diagnostics.Debug.Print("Journey is null.");
+                }
+
                 return Page();
             }
 

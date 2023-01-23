@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Station[0].PublicStationId)
+                @Html.DisplayNameFor(model => model.Station[0].PublicStationID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Station[0].NameFI)
@@ -53,7 +53,7 @@
 @foreach (var item in Model.Station) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PublicStationId)
+                @Html.DisplayFor(modelItem => item.PublicStationID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NameFI)
@@ -86,9 +86,9 @@
                 @Html.DisplayFor(modelItem => item.YCoordinate)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
 }

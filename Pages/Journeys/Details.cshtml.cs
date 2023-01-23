@@ -28,7 +28,7 @@ namespace Solita2023Assignment.Pages.Journeys
                 return NotFound();
             }
 
-            var journey = await _context.Journey.FirstOrDefaultAsync(m => m.Id == id);
+            var journey = await _context.Journey.FirstOrDefaultAsync(m => m.ID == id);
             if (journey == null)
             {
                 return NotFound();

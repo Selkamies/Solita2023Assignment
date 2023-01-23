@@ -13,16 +13,17 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Journey.Id" />
+            <input type="hidden" asp-for="Journey.ID" />
             <div class="form-group">
-                <label asp-for="Journey.DepartureStationId" class="control-label"></label>
-                <select asp-for="Journey.DepartureStationId" class="form-control" asp-items="ViewBag.DepartureStationId"></select>
-                <span asp-validation-for="Journey.DepartureStationId" class="text-danger"></span>
+                <label asp-for="Journey.DepartureStationID" class="control-label"></label>
+                <!-- TODO: We get an error here, and we don't want to see the id's for stations anyway, but names. -->
+                <select asp-for="Journey.DepartureStationID" class="form-control" asp-items="ViewBag.DepartureStationID"></select>
+                <span asp-validation-for="Journey.DepartureStationID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Journey.ReturnStationId" class="control-label"></label>
-                <select asp-for="Journey.ReturnStationId" class="form-control" asp-items="ViewBag.ReturnStationId"></select>
-                <span asp-validation-for="Journey.ReturnStationId" class="text-danger"></span>
+                <label asp-for="Journey.ArrivalStationID" class="control-label"></label>
+                <select asp-for="Journey.ArrivalStationID" class="form-control" asp-items="ViewBag.ReturnStationID"></select>
+                <span asp-validation-for="Journey.ArrivalStationID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Journey.DepartureTime" class="control-label"></label>
@@ -30,9 +31,9 @@
                 <span asp-validation-for="Journey.DepartureTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Journey.ReturnTime" class="control-label"></label>
-                <input asp-for="Journey.ReturnTime" class="form-control" />
-                <span asp-validation-for="Journey.ReturnTime" class="text-danger"></span>
+                <label asp-for="Journey.ArrivalTime" class="control-label"></label>
+                <input asp-for="Journey.ArrivalTime" class="form-control" />
+                <span asp-validation-for="Journey.ArrivalTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Journey.DistanceMeters" class="control-label"></label>

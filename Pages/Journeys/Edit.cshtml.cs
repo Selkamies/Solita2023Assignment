@@ -30,7 +30,7 @@ namespace Solita2023Assignment.Pages.Journeys
                 return NotFound();
             }
 
-            var journey =  await _context.Journey.FirstOrDefaultAsync(m => m.Id == id);
+            var journey =  await _context.Journey.FirstOrDefaultAsync(m => m.ID == id);
             if (journey == null)
             {
                 return NotFound();
@@ -58,7 +58,7 @@ namespace Solita2023Assignment.Pages.Journeys
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!JourneyExists(Journey.Id))
+                if (!JourneyExists(Journey.ID))
                 {
                     return NotFound();
                 }
@@ -73,7 +73,7 @@ namespace Solita2023Assignment.Pages.Journeys
 
         private bool JourneyExists(int id)
         {
-          return (_context.Journey?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Journey?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }
