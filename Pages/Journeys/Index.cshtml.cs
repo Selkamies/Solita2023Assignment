@@ -19,16 +19,15 @@ namespace Solita2023Assignment.Pages.Journeys
             _context = context;
         }
 
-        public IList<Journey> Journey { get; set; } = default!;
+        public IList<Journey> Journey { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            // TODO: We don't need to fetch all Station info, only database id, name and maybe public id.
             if (_context.Journey != null)
             {
                 Journey = await _context.Journey
-                .Include(j => j.DepartureStation)
-                .Include(j => j.ArrivalStation).ToListAsync();
+                .Include(j => j.ArrivalStation)
+                .Include(j => j.DepartureStation).ToListAsync();
             }
         }
     }

@@ -35,8 +35,8 @@ namespace Solita2023Assignment.CSV
         {
             Map(m => m.DepartureTime).Name("Departure");
             Map(m => m.ArrivalTime).Name("Return");
-            Map(m => m.DepartureStationID).Name("Departure station id");
-            Map(m => m.ArrivalStationID).Name("Return station id");
+            Map(m => m.DepartureStation).Name("Departure station id");
+            Map(m => m.ArrivalStation).Name("Return station id");
             Map(m => m.DistanceMeters).Name("Covered distance (m)");
             Map(m => m.DurationSeconds).Name("Duration (sec.)");
         }

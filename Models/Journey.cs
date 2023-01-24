@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.CodeAnalysis;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Solita2023Assignment.Models
@@ -12,18 +13,18 @@ namespace Solita2023Assignment.Models
         /// <summary>
         /// Database id number of the journey.
         /// </summary>
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Column(Order = 0)]
         public int ID { get; set; }
 
         /// <summary>
         /// Date and time of the departure (start of the journey).
         /// </summary>
-        [Required, Display(Name = "Departure time")]
+        [Required, Display(Name = "Departure time"), Column(Order = 1)]
         public DateTime DepartureTime { get; set; }
         /// <summary>
         /// Date and time of the return (end of the journey).
         /// </summary>
-        [Required, Display(Name = "Arrival time")]
+        [Required, Display(Name = "Arrival time"), Column(Order = 2)]
         public DateTime ArrivalTime { get; set; }
 
         // The station id's are added to the database, but we want to display either only
@@ -33,23 +34,30 @@ namespace Solita2023Assignment.Models
         /// <summary>
         /// Database id (not public id) of the departure station. Gets saved to database.
         /// </summary>
-        [Required, ForeignKey("DepartureStation"), Display(Name = "Departure station")]
+        //[Required(ErrorMessage = "Departure ID error.")]
+        [Required, ForeignKey(nameof(DepartureStation)), Column(Order = 3)]
         public int DepartureStationID { get; set; }
         /// <summary>
         /// Reference to the departure station model, not saved to database. 
         /// Used to get the name and public id of the station.
         /// </summary>
-        public Station DepartureStation { get; set; } = default!;
+        // NOTE: These have to be nullable! Otherwise the whole station model
+        //       will fail validation when creating a new journey!
+        [Display(Name = "Departure station")]
+        public virtual Station? DepartureStation { get; set; } = default!;
         /// <summary>
         /// Database id (not public id) of the departure station.
         /// </summary>
-        [Required, ForeignKey("ArrivalStation"), Display(Name = "Arrival station")]
+        //[Required(ErrorMessage = "Arrival ID error.")]
+        [Required, ForeignKey(nameof(ArrivalStation)), Column(Order = 4)]
         public int ArrivalStationID { get; set; }
         /// <summary>
         /// Reference to the return station model, not saved to database. 
         /// Used to get the name and public id of the station.
         /// </summary>
-        public Station ArrivalStation { get; set; } = default!;
+        //[Required(ErrorMessage = "Arrival Station error.")]
+        [Display(Name = "Arrival station")]
+        public virtual Station? ArrivalStation { get; set; } = default!;
 
         // TODO: The database expects the distance in meters in create Journey page,
         //       but we display it as kilometers in the Journey table column.
@@ -57,12 +65,12 @@ namespace Solita2023Assignment.Models
         /// <summary>
         /// Distance of the journey in meters.
         /// </summary>
-        [Required, Display(Name = "Distance (m)")]
+        [Required, Display(Name = "Distance (m)"), Column(Order = 5)]
         public int DistanceMeters { get; set; }
         /// <summary>
         /// Duration of the journey in seconds.
         /// </summary>
-        [Required, Display(Name = "Duration")]
+        [Required, Display(Name = "Duration"), Column(Order = 6)]
         public int DurationSeconds { get; set; }
 
 
@@ -70,6 +78,7 @@ namespace Solita2023Assignment.Models
         /// <summary>
         /// Returns the distance in kilometers, rounded to three decimal places.
         /// </summary>
+        [Display(Name = "Distance (km)")]
         public float DistanceKilometers
         {
             get

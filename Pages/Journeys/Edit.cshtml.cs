@@ -36,8 +36,8 @@ namespace Solita2023Assignment.Pages.Journeys
                 return NotFound();
             }
             Journey = journey;
-           ViewData["DepartureStationId"] = new SelectList(_context.Station, "Id", "Id");
-           ViewData["ReturnStationId"] = new SelectList(_context.Station, "Id", "Id");
+           ViewData["ArrivalStationID"] = new SelectList(_context.Station, "ID", "AddressFI");
+           ViewData["DepartureStationID"] = new SelectList(_context.Station, "ID", "AddressFI");
             return Page();
         }
 

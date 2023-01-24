@@ -17,36 +17,62 @@ namespace Solita2023Assignment.Pages.Journeys
         public CreateModel(Solita2023Assignment.Data.Solita2023AssignmentContext context)
         {
             _context = context;
+            //this.CreateStationList();
         }
+
+        /// <summary>
+        /// This is used to get the list of stations in the cshtml.
+        /// </summary>
+        //public List<SelectListItem>? Stations { get; set; }
+
+        /*private bool CreateStationList()
+        {
+            this.Stations = _context.Station.Select(station => new SelectListItem
+            {
+                Text = station.NameFI,
+                Value = station.ID.ToString()
+            }).ToList();
+
+            if (this.Stations.Count > 0)
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+        }*/
 
         public IActionResult OnGet()
         {
-            // Creates a dropdown list from stations, selection saves the database id of station,
-            // but displays the Finnish name of the station.
-            // TODO: Display both the name and public id of station?
-            SelectList stationList = new SelectList(items: _context.Station, 
-                                                    dataValueField: "ID", 
-                                                    dataTextField: "NameFI");
-            ViewData["DepartureStationID"] = stationList;
-            ViewData["ReturnStationID"] = stationList;
+            // These disappear when "create" button is pressed (and page is reloaded) and adding a new journey fails.
+            ViewData["ArrivalStationID"] = new SelectList(_context.Station, "ID", "NameFI");
+            ViewData["DepartureStationID"] = new SelectList(_context.Station, "ID", "NameFI");
+
+            /*ViewData["ArrivalStationID"] = this.Stations;
+            ViewData["DepartureStationID"] = this.Stations*/
 
             return Page();
         }
 
         [BindProperty]
         public Journey Journey { get; set; } = default!;
+        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            //ModelState.Remove("ID");
-
-            if (!ModelState.IsValid || _context.Journey == null || Journey == null)
+          if (!ModelState.IsValid || _context.Journey == null || Journey == null)
             {
-                if (!ModelState.IsValid)
+                /*if (!ModelState.IsValid)
                 {
-                    // TODO: We get here, and get error that station must be selected.
+                    // TODO: We get here, and get error that station must be selected. The create page then 
+                    //       reloads, and the station dropdowns are empty.
                     System.Diagnostics.Debug.Print("ModelState is not valid.");
+                    // These are correct id's, but don't validate.
+                    System.Diagnostics.Debug.Print($"Selected Departure Station ID: {Journey.DepartureStationID}");
+                    System.Diagnostics.Debug.Print($"Selected Arrival Station ID: {Journey.ArrivalStationID}");
                 }
 
                 if (_context.Journey == null)
@@ -57,7 +83,7 @@ namespace Solita2023Assignment.Pages.Journeys
                 if (Journey == null)
                 {
                     System.Diagnostics.Debug.Print("Journey is null.");
-                }
+                }*/
 
                 return Page();
             }

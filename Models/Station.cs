@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static System.Collections.Specialized.BitVector32;
 using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Solita2023Assignment.Models
 {
@@ -29,7 +30,7 @@ namespace Solita2023Assignment.Models
         /// <summary>
         /// Database id number of the station.
         /// </summary>
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Column(Order = 0)]
         public int ID { get; set; }
 
         // No idea what FId is, seems to count up from 1, so the same as database id number? Not needed?
@@ -38,60 +39,62 @@ namespace Solita2023Assignment.Models
         /// <summary>
         /// Public id number of the station. Id in the .csv file.
         /// </summary>
-        [Required, Display(Name = "Station Id")]
+        [Required, Display(Name = "Station Id"), Column(Order = 1)]
         public int PublicStationID { get; set; }
 
         /// <summary>
         /// Finnish name of the station.
         /// </summary>
-        [Required, Display(Name = "Nimi")]
+        [Required, Display(Name = "Nimi"), Column(Order = 2)]
         public string NameFI { get; set; } = string.Empty;
         /// <summary>
         /// Swedish name of the station.
         /// </summary>
-        [Required, Display(Name = "Namn")]
+        [Required, Display(Name = "Namn"), Column(Order = 3)]
         public string NameSV { get; set; } = string.Empty;
 
         /// <summary>
         /// Finnish address of the station.
         /// </summary>
-        [Required, Display(Name = "Osoite")]
+        [Required, Display(Name = "Osoite"), Column(Order = 4)]
         public string AddressFI { get; set; } = string.Empty;
         /// <summary>
         /// Swedish address of the station.
         /// </summary>
-        [Required, Display(Name = "Adress")]
+        [Required, Display(Name = "Adress"), Column(Order = 5)]
         public string AddressSV { get; set; } = string.Empty;
 
         /// <summary>
         /// Finnish name of the city where the station is in.
         /// </summary>
-        [Display(Name = "Kaupunki")]
+        [Display(Name = "Kaupunki"), Column(Order = 6)]
         public string CityFI { get; set; } = string.Empty;
         /// <summary>
         /// Swedish name of the city where the station is in.
         /// </summary>
-        [Display(Name = "Stad")]
+        [Display(Name = "Stad"), Column(Order = 7)]
         public string CitySV { get; set; } = string.Empty;
 
         /// <summary>
         /// Name of the company that operates the station.
         /// </summary>
+        [Column(Order = 8)]
         public string Operator { get; set; } = string.Empty;
         /// <summary>
         /// Maximum capacity for citybikes at the station.
         /// </summary>
+        [Column(Order = 9)]
         public int Capacity { get; set; }
 
         /// <summary>
         /// Map X-coordinate (Longitude) of the station.
         /// </summary>
-        [Required, Display(Name = "X (Longtitude)")]
+        [Required, Display(Name = "X (Longtitude)"), Column(Order = 10)]
         public float XCoordinate { get; set; }
         /// <summary>
         /// Map Y-coordinate (Latitude) of the station.
         /// </summary>
-        [Required, Display(Name = "Y (Latitude)")]
+        [Required, Display(Name = "Y (Latitude)"), Column(Order = 11)]
         public float YCoordinate { get; set; }
     }
 }

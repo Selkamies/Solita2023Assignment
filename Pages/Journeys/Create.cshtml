@@ -12,15 +12,21 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="Journey.DepartureStationID" class="control-label"></label>
-                <select asp-for="Journey.DepartureStationID" class ="form-control" asp-items="ViewBag.DepartureStationID"></select>
-                <!-- Testing. -->
-                <span asp-validation-for="Journey.DepartureStationID" class="text-danger"></span>
+                <label asp-for="Journey.DepartureStation" class="control-label"></label>
+                <select asp-for="Journey.DepartureStationID" class="form-control" asp-items="ViewBag.DepartureStationID">
+                    <option value="">Choose a station</option>
+                </select>
             </div>
+            @*<div class="form-group">
+                <label asp-for="Journey.DepartureStationID" class="control-label"></label>
+                <select asp-for="Journey.DepartureStationID" class="form-control" asp-items="Model.Stations">
+                        <option value="">Choose a station</option>
+                    </select>
+                <span asp-validation-for="Journey.DepartureStationID" class="text-danger"></span>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Journey.DepartureTime" class="control-label"></label>
                 <input asp-for="Journey.DepartureTime" class="form-control" />
@@ -28,31 +34,36 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Journey.ArrivalStationID" class="control-label"></label>
-                <select asp-for="Journey.ArrivalStationID" class ="form-control" asp-items="ViewBag.ReturnStationID"></select>
-                <!-- Testing. -->
-                <span asp-validation-for="Journey.ArrivalStationID" class="text-danger"></span>
+                <label asp-for="Journey.ArrivalStation" class="control-label"></label>
+                <select asp-for="Journey.ArrivalStationID" class="form-control" asp-items="ViewBag.ArrivalStationID">
+                    <option value="">Choose a station</option>
+                </select>
             </div>
+            @*<div class="form-group">
+                <label asp-for="Journey.ArrivalStationID" class="control-label"></label>
+                <select asp-for="Journey.ArrivalStationID" class ="form-control" asp-items="Model.Stations">
+                    <option value="">Choose a station</option>
+                </select>
+                <span asp-validation-for="Journey.ArrivalStationID" class="text-danger"></span>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Journey.ArrivalTime" class="control-label"></label>
                 <input asp-for="Journey.ArrivalTime" class="form-control" />
                 <span asp-validation-for="Journey.ArrivalTime" class="text-danger"></span>
             </div>
-
+            
             <div class="form-group">
-                <!-- TODO: The database expects the distance in meters, but we display it as kilometers
-                           in the Journey table column. This might be confusing for users? -->
                 <label asp-for="Journey.DistanceMeters" class="control-label"></label>
                 <input asp-for="Journey.DistanceMeters" class="form-control" />
                 <span asp-validation-for="Journey.DistanceMeters" class="text-danger"></span>
             </div>
+            <!-- TODO: Don't allow manual duration, calculate it from departure and arrival times. -->
             <div class="form-group">
                 <label asp-for="Journey.DurationSeconds" class="control-label"></label>
                 <input asp-for="Journey.DurationSeconds" class="form-control" />
                 <span asp-validation-for="Journey.DurationSeconds" class="text-danger"></span>
             </div>
 
-            <!-- TODO: Saving doesn't work, just clears station selections. -->
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -61,7 +72,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to journey list</a>
+    <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
