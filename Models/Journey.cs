@@ -62,16 +62,18 @@ namespace Solita2023Assignment.Models
         // TODO: The database expects the distance in meters in create Journey page,
         //       but we display it as kilometers in the Journey table column.
         //       This might be confusing for users? Add a toggle to display either?
+        // NOTE: These needed to be changed to nullable with ?, because reading a row from
+        //       .csv file with blank distance caused error that I haven't figured out how to skip without errors.
         /// <summary>
         /// Distance of the journey in meters.
         /// </summary>
         [Required, Display(Name = "Distance (m)"), Column(Order = 5)]
-        public int DistanceMeters { get; set; }
+        public int? DistanceMeters { get; set; }
         /// <summary>
         /// Duration of the journey in seconds.
         /// </summary>
         [Required, Display(Name = "Duration"), Column(Order = 6)]
-        public int DurationSeconds { get; set; }
+        public int? DurationSeconds { get; set; }
 
 
 
@@ -84,7 +86,7 @@ namespace Solita2023Assignment.Models
             get
             {
                 // NOTE: The 1000 (meters) must be a float to get float out of the calculation.
-                return float.Round(this.DistanceMeters / 1000f, 3);
+                return float.Round((float)(this.DistanceMeters! / 1000f), 3);
             }
         }
 
@@ -98,7 +100,7 @@ namespace Solita2023Assignment.Models
                 // Gets the number of minutes in the duration, and then the remainder in seconds.
                 // NOTE: TimeSpan was also an option, but would have needed manual fiddling anyway,
                 //       if the journey was longer than an hour.
-                (int minutes, int seconds) = Math.DivRem(this.DurationSeconds, 60);
+                (int minutes, int seconds) = Math.DivRem((int)this.DurationSeconds!, 60);
 
                 // Display only minutes if seconds are 0.
                 if (minutes != 0 && seconds == 0)

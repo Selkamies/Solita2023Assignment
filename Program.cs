@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Solita2023Assignment.CSV;
 using Solita2023Assignment.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,8 +13,19 @@ if (builder.Environment.IsDevelopment())
     mvcBuilder.AddRazorRuntimeCompilation();
 }
 
-builder.Services.AddDbContext<Solita2023AssignmentContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("Solita2023AssignmentContext") ?? throw new InvalidOperationException("Connection string 'Solita2023AssignmentContext' not found.")));
+//builder.Services.AddDbContext<Solita2023AssignmentContext>(options =>
+//    options.UseSqlite(builder.Configuration.GetConnectionString("Solita2023AssignmentContext") ?? throw new InvalidOperationException("Connection string 'Solita2023AssignmentContext' not found.")));
+
+builder.Services.AddDbContext<Solita2023AssignmentContext>();
+
+
+
+// TODO: Is this a good place for this?
+ParseCSVToDatabase parser = new ParseCSVToDatabase();
+parser.ParseStations();
+parser.ParseJourneys();
+
+
 
 var app = builder.Build();
 
