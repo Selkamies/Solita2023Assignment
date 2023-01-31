@@ -47,6 +47,8 @@ NuGet packages
 - [ ] Instead of just checking if database exists at start, also check if it has any valid data in it.
 - [ ] Tests.
 - [ ] Support for future files containing journey data, don't use hardcoded names.
+- [ ] Get a list of all rows that failed validation and the reason for failing to check if we discard rows that could be salvaged.
+- [ ] Performance? Threading?
 
 ### Journeys
 Journey index:
@@ -58,6 +60,7 @@ Journey index:
 - [ ] Filtering.
 
 Journey create/edit:
+- [x] Pages for creating/editing journeys.
 - [ ] When creating a new journey, don't allow the user to input the duration, but instead calculate it from departure and arrival times.
 - [ ] Show the calculated duration to the user when departure or arrival time is changed. Requires Javascript.
 
@@ -78,3 +81,6 @@ Station details:
 - [ ] Top 5 most popular return stations for journeys starting from the station
 - [ ] Top 5 most popular departure stations for journeys ending at the station
 - [ ] Ability to filter all the calculations per month
+
+Station create/edit:
+- [x] Pages for creating/editing stations.
