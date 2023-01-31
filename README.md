@@ -1,14 +1,17 @@
 # Solita2023Assignment
 
-Pre-assignment for Solita Dev Academy Finland 2023. Check TODO.md for finished feature details.
+Pre-assignment for Solita Dev Academy Finland 2023. 
 
 ### Dependencies and requirements
 
-Microsoft Visual Studio ()
-ASP.NET
-.NET 7.0
+* Microsoft Visual Studio
+* ASP.NET Core
+* .NET 7.0
+* [CsvHelper](https://joshclose.github.io/CsvHelper/)
 
 ![Dependencies image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/Dependencies.png?raw=true)
+
+![NuGet packages image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/NuGetPackages.png?raw=true)
 
 ### Instructions
 
@@ -60,7 +63,7 @@ Station index:
 - [ ] Pagination.
 - [ ] Searching.
 
-Station dtails: 
+Station details: 
 - [x] Station name.
 - [x] Station address.
 - [ ] Total number of journeys starting from the station.
