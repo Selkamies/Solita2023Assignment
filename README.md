@@ -1,6 +1,6 @@
 # Solita2023Assignment
 
-Pre-assignment for Solita Dev Academy Finland 2023. 
+[Pre-assignment](https://github.com/solita/dev-academy-2023-exercise) for Solita Dev Academy Finland 2023. 
 
 ### Dependencies and requirements
 
@@ -49,6 +49,7 @@ NuGet packages
 - [ ] Support for future files containing journey data, don't use hardcoded names.
 - [ ] Get a list of all rows that failed validation and the reason for failing to check if we discard rows that could be salvaged.
 - [ ] Performance? Threading?
+- [ ] Download the .csv files automatically?
 
 ### Journeys
 Journey index:
