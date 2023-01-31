@@ -9,8 +9,10 @@ Pre-assignment for Solita Dev Academy Finland 2023.
 * .NET 7.0
 * [CsvHelper](https://joshclose.github.io/CsvHelper/)
 
+Dependencies
 ![Dependencies image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/Dependencies.png?raw=true)
 
+NuGet packages
 ![NuGet packages image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/NuGetPackages.png?raw=true)
 
 ### Instructions
