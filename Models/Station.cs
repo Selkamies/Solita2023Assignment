@@ -45,7 +45,7 @@ namespace Solita2023Assignment.Models
         /// <summary>
         /// Finnish name of the station.
         /// </summary>
-        [Required, Display(Name = "Nimi"), Column(Order = 2)]
+        [Required, Display(Name = "Name"), Column(Order = 2)]
         public string NameFI { get; set; } = string.Empty;
         /// <summary>
         /// Swedish name of the station.
@@ -56,7 +56,7 @@ namespace Solita2023Assignment.Models
         /// <summary>
         /// Finnish address of the station.
         /// </summary>
-        [Required, Display(Name = "Osoite"), Column(Order = 4)]
+        [Required, Display(Name = "Address"), Column(Order = 4)]
         public string AddressFI { get; set; } = string.Empty;
         /// <summary>
         /// Swedish address of the station.
@@ -67,7 +67,7 @@ namespace Solita2023Assignment.Models
         /// <summary>
         /// Finnish name of the city where the station is in.
         /// </summary>
-        [Display(Name = "Kaupunki"), Column(Order = 6)]
+        [Display(Name = "City"), Column(Order = 6)]
         public string CityFI { get; set; } = string.Empty;
         /// <summary>
         /// Swedish name of the city where the station is in.

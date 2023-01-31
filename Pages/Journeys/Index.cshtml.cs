@@ -25,9 +25,10 @@ namespace Solita2023Assignment.Pages.Journeys
         {
             if (_context.Journey != null)
             {
+                // TODO: Add pagination.
                 Journey = await _context.Journey
-                .Include(j => j.ArrivalStation)
-                .Include(j => j.DepartureStation).ToListAsync();
+                    .Include(j => j.ArrivalStation)
+                    .Include(j => j.DepartureStation).Take(100).ToListAsync();
             }
         }
     }

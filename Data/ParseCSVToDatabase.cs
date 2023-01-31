@@ -1,15 +1,7 @@
 ﻿using CsvHelper;
-using CsvHelper.Configuration;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Elfie.Model.Tree;
-using Microsoft.DotNet.Scaffolding.Shared.Project;
-using Microsoft.EntityFrameworkCore;
 using Solita2023Assignment.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing.Printing;
 using System.Globalization;
-using System.Reflection;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Solita2023Assignment.Data
 {
@@ -19,13 +11,17 @@ namespace Solita2023Assignment.Data
     /// </summary>
     public class ParseCSVToDatabase
     {
-        private string CSVFolderPath = Environment.CurrentDirectory + "/CSV/";
-        // TODO: Save the file names in appsettings.json instead, in ConnectionStrings?
+        private string CSVFilePath = Environment.CurrentDirectory + "/Data/";
+
+        // TODO: Save the file names in appsettings.json instead?
         private const string StationsCSVFileName = "Helsingin_ja_Espoon_kaupunkipyB6rA4asemat_avoin.csv";
         private const string JourneysCSV05FileName = "2021-05.csv";
         private const string JourneysCSV06FileName = "2021-06.csv";
         private const string JourneysCSV07FileName = "2021-07.csv";
 
+        /// <summary>
+        /// Dictionary of Station public id keys paired with station database id values.
+        /// </summary>
         private Dictionary<int, int>? StationIDs;
 
 
@@ -62,7 +58,7 @@ namespace Solita2023Assignment.Data
         /// <param name="dbContext">Database context for Entity Framework to use when INSERTing Stations to database.</param>
         public void StationCSVToDatabase(string fileName, Solita2023AssignmentContext dbContext)
         {
-            string filePath = CSVFolderPath + fileName;
+            string filePath = CSVFilePath + fileName;
 
             System.Diagnostics.Debug.Print($"File path set to {filePath}.");
 
@@ -84,6 +80,7 @@ namespace Solita2023Assignment.Data
                 }
             }
 
+            System.Diagnostics.Debug.Print($"Inserting the stations in {fileName} to database.\n");
             dbContext.SaveChanges();
         }
 
@@ -98,11 +95,10 @@ namespace Solita2023Assignment.Data
             using (Solita2023AssignmentContext context = new Solita2023AssignmentContext())
             {
                 // Only bother reading and inserting Journeys if the Journey table is empty.
-                // TODO: Doesn't work?
-                if (!context.Journey.Any())
-
-                    System.Diagnostics.Debug.Print("Starting to parse Stations.");
+                if (!context.Journey.Any()) 
                 {
+                    System.Diagnostics.Debug.Print("Starting to parse Journeys.");
+
                     // Create a dictionary of Station public ids as key and their database id as value.
                     // Journeys store the public ids of departure and arrival stations, but we want to change
                     // those to database primary key ids.
@@ -125,15 +121,17 @@ namespace Solita2023Assignment.Data
                 return;
             }
 
+            // Successfully parsed journeys.
             int successCounter = 0;
             int distanceOrDurationFailedCounter = 0;
             int validateFailedCounter = 0;
+            // The public station id of departure or arrival station id failed to match any station.
             int idFailedCounter = 0;
             int nullCounter = 0;
             int totalRows;
             int totalFails;
 
-            string filePath = CSVFolderPath + fileName;
+            string filePath = CSVFilePath + fileName;
 
             System.Diagnostics.Debug.Print($"File path set to {filePath}.");
 
@@ -152,7 +150,7 @@ namespace Solita2023Assignment.Data
                 if (journey != null )
                 {
                     // Don't bother adding journeys with distances less than 10 meters or duration less than 10 seconds.
-                    if (journey.DistanceMeters >= 10 || journey.DurationSeconds >= 10)
+                    if (journey.DistanceMeters >= 10 && journey.DurationSeconds >= 10)
                     {
                         if (ValidateRow(journey))
                         {
@@ -176,7 +174,7 @@ namespace Solita2023Assignment.Data
 
                             successCounter++;
 
-                            if (successCounter % 10000 == 0)
+                            if (successCounter % 100000 == 0)
                             {
                                 totalRows = successCounter + nullCounter + distanceOrDurationFailedCounter + validateFailedCounter + idFailedCounter;
                                 totalFails = totalRows - successCounter;
@@ -186,7 +184,10 @@ namespace Solita2023Assignment.Data
                                 System.Diagnostics.Debug.Print($"Null fails: {nullCounter}.");
                                 System.Diagnostics.Debug.Print($"Distance or duration fails: {distanceOrDurationFailedCounter}.");
                                 System.Diagnostics.Debug.Print($"Validation fails: {validateFailedCounter}.");
-                                System.Diagnostics.Debug.Print($"Id fails: {idFailedCounter}.");
+                                System.Diagnostics.Debug.Print($"Id fails: {idFailedCounter}.\n");
+
+                                System.Diagnostics.Debug.Print($"Inserting to database...\n");
+                                dbContext.SaveChanges();
                             }
                         }
 
@@ -195,23 +196,26 @@ namespace Solita2023Assignment.Data
                             validateFailedCounter++;
                             continue;
                         }
-                    }
+                    } // if (journey.DistanceMeters >= 10 && journey.DurationSeconds >= 10)
 
                     else
                     {
                         distanceOrDurationFailedCounter++;
+                        continue;
                     }
-                }
+                } // if (journey != null)
 
                 else
                 {
                     nullCounter++;
+                    continue;
                 }
             } // while (csvReader.Read())
 
             totalRows = successCounter + nullCounter + distanceOrDurationFailedCounter + validateFailedCounter + idFailedCounter;
             totalFails = totalRows - successCounter;
 
+            // TODO: Move the parsing counters to an object, and pass it to a method that prints this.
             System.Diagnostics.Debug.Print($"\n----- FILE: {fileName} FINISHED! -----");
             System.Diagnostics.Debug.Print($"Successes: {successCounter}/{totalRows}.");
             System.Diagnostics.Debug.Print($"Fails: {totalFails}/{totalRows}.");
@@ -222,6 +226,7 @@ namespace Solita2023Assignment.Data
             System.Diagnostics.Debug.Print($"----- FILE: {fileName} FINISHED! -----\n");
 
             // TODO: Add stuff to database in smaller batches? Every 10k or 100k rows?
+            System.Diagnostics.Debug.Print($"Inserting the journeys in {fileName} to database.\n");
             dbContext.SaveChanges();
         } // JourneyCSVToDatabase()
 
@@ -235,20 +240,13 @@ namespace Solita2023Assignment.Data
         /// <returns>True if the row is valid, false if not.</returns>
         public bool ValidateRow(object modelRow)
         {
-            // TODO: Create the list once and just clear it here.
+            // TODO: Create the list once and just clear it here?
             List<ValidationResult> validationErrors = new List<ValidationResult>();
             if (!Validator.TryValidateObject(instance: modelRow,
                                              validationContext: new ValidationContext(modelRow),
                                              validationResults: validationErrors,
                                              validateAllProperties: true))
             {
-                System.Diagnostics.Debug.Print("Row failed to validate: ");
-
-                foreach (ValidationResult error in validationErrors)
-                {
-                    System.Diagnostics.Debug.Print(error.ErrorMessage);
-                }
-
                 return false;
             }
 
@@ -257,139 +255,5 @@ namespace Solita2023Assignment.Data
                 return true;
             }
         } // ValidateRow()
-
-
-
-
-
-
-
-        /*public bool ParseRow(Station modelRow)
-        {
-            return ValidateRow(modelRow);
-        }
-
-        public bool ParseRow(Journey modelRow)
-        {
-            // Don't bother adding journeys with distances less than 10 meters or duration less than 10 seconds.
-            if (modelRow.DistanceMeters < 10 || modelRow.DurationSeconds < 10)
-            {
-                return false;
-            }
-
-            return ValidateRow(modelRow);
-        }*/
-
-
-
-
-
-
-
-        // TODO: Any way to generalize this so that we would only need separate methods for 
-        //       parsing a single row of either station or journey?
-        /*private void ReadStationRows(CsvReader reader)
-        {
-            int validRowCounter = 0;
-            int invalidRowCounter = 0;
-
-            while (reader.Read())
-            {
-                // Load a csv row to a Station model class using previously registered StationMap class mapping.
-                Station? row = reader.GetRecord<Station>();
-
-                if (row != null)
-                {
-                    // TODO: Can we make this more generic, so that we can use this for both journeys and stations?
-                    //       Pass a type or an enum corresponding to type or something.
-                    if (ParseStationRow(stationRow: row))
-                    {
-                        // TODO: Row is valid, insert it into the database.
-                        validRowCounter++;
-                    }
-
-                    else
-                    {
-                        // TODO: Row is not valid, increase a counter or something.
-                        invalidRowCounter++;
-                    }
-                }
-            } // while (reader.Read())
-
-            System.Diagnostics.Debug.Print($"\nValid rows: {validRowCounter}, invalid rows: {invalidRowCounter}.\n");
-        }
-
-        private void ReadJourneyRows(CsvReader reader)
-        {
-            while (reader.Read())
-            {
-                // Load a csv row to a Station model class using previously registered StationMap class mapping.
-                Journey? row = reader.GetRecord<Journey>();
-
-                if (row != null)
-                {
-                    // TODO: Can we make this more generic, so that we can use this for both journeys and stations?
-                    //       Pass a type or an enum corresponding to type or something.
-                    if (ParseJourneyRow(journeyRow: row))
-                    {
-                        // TODO: Row is valid, insert it into the database.
-                    }
-
-                    else
-                    {
-                        // TODO: Row is not valid, increase a counter or something.
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Parse station rows by validating the data read to Station model object.
-        /// </summary>
-        /// <param name="stationRow">The Station model object containing data read from the .csv row.</param>
-        /// <returns>True if the row data vas validated, false if not.</returns>
-        private bool ParseStationRow(Station stationRow)
-        {
-            List<ValidationResult> validationErrors = new List<ValidationResult>();
-            if (!Validator.TryValidateObject(instance: stationRow,
-                                             validationContext: new ValidationContext(stationRow),
-                                             validationResults: validationErrors,
-                                             validateAllProperties: true))
-            {
-                foreach (ValidationResult error in validationErrors)
-                {
-                    Console.WriteLine(error.ErrorMessage);
-                }
-
-                return false;
-            }
-
-            else
-            {
-                return true;
-            }
-        } // ParseStationRow()
-
-        private bool ParseJourneyRow(Journey journeyRow)
-        {
-            List<ValidationResult> validationErrors = new List<ValidationResult>();
-            if (!Validator.TryValidateObject(instance: journeyRow,
-                                             validationContext: new ValidationContext(journeyRow),
-                                             validationResults: validationErrors,
-                                             validateAllProperties: true))
-            {
-                foreach (ValidationResult error in validationErrors)
-                {
-                    Console.WriteLine(error.ErrorMessage);
-                }
-
-                return false;
-            }
-
-            else
-            {
-                return true;
-            }
-        } // ParseJourneyRow()*/
     }
 }

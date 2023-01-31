@@ -97,6 +97,11 @@ namespace Solita2023Assignment.Models
         {
             get
             {
+                if (this.DurationSeconds == null)
+                {
+                    return "";
+                }
+
                 // Gets the number of minutes in the duration, and then the remainder in seconds.
                 // NOTE: TimeSpan was also an option, but would have needed manual fiddling anyway,
                 //       if the journey was longer than an hour.

@@ -6,8 +6,6 @@
 	<Nullable>enable</Nullable> 
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>47edbc9a-0607-4fdc-854c-612a980b0376</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,13 +17,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Database\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

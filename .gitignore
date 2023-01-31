@@ -368,6 +368,8 @@ FodyWeavers.xsd
 
 # The SQLite database will also be larger than 100MB, just create it if it doesn't exist.
 *.db
+*.db-shm
+*.db-wal
 
 # Migrations are probably not needed in Git.
 Migrations/

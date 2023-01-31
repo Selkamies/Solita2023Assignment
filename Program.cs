@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Solita2023Assignment.Data;
+﻿using Solita2023Assignment.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +15,23 @@ if (builder.Environment.IsDevelopment())
 //builder.Services.AddDbContext<Solita2023AssignmentContext>(options =>
 //    options.UseSqlite(builder.Configuration.GetConnectionString("Solita2023AssignmentContext") ?? throw new InvalidOperationException("Connection string 'Solita2023AssignmentContext' not found.")));
 
+
+
+// Register the database context we use.
 builder.Services.AddDbContext<Solita2023AssignmentContext>();
 
+// Create the database if it doesn't exist.
+using (Solita2023AssignmentContext context = new Solita2023AssignmentContext())
+{
+    System.Diagnostics.Debug.Print("Database not found, creating a new one.");
 
+    // Create the folder for the database.
+    string databaseFolderString = Environment.CurrentDirectory + "/Database/";
+    Directory.CreateDirectory(databaseFolderString);
 
-// TODO: Is this a good place for this?
+    context.Database.EnsureCreated();
+}
+
 ParseCSVToDatabase parser = new ParseCSVToDatabase();
 parser.ParseStations();
 parser.ParseJourneys();
