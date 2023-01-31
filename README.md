@@ -1,6 +1,12 @@
 # Solita2023Assignment
 
+Pre-assignment for Solita Dev Academy Finland 2023. Check TODO.md for finished feature details.
+
 ## Dependencies and requirements
+
+Microsoft Visual Studio ()
+ASP.NET
+.NET 7.0
 
 ![Dependencies image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/Dependencies.png?raw=true)
 
