@@ -1,6 +1,6 @@
 # Solita2023Assignment
 
-[Pre-assignment](https://github.com/solita/dev-academy-2023-exercise) for Solita Dev Academy Finland 2023. 
+[Pre-assignment](https://github.com/solita/dev-academy-2023-exercise) for Solita Dev Academy Finland 2023. Used this as an opportunity to learn ASP.NET.
 
 ### Dependencies and requirements
 
@@ -30,7 +30,7 @@ NuGet packages
 
 2. Open project with Visual Studio (2022?)
 
-3. Compile and run project. On first excecution, the data from .csv files is imported to an SQLite database. On my computer this takes about 9 minutes.
+3. Compile and run project. On first excecution, the data from .csv files is imported to an SQLite database. On my computer this takes about ~10 minutes.
 
 
 
@@ -62,6 +62,7 @@ Journey index:
 
 Journey create/edit:
 - [x] Pages for creating/editing journeys.
+- [ ] Allow the user to select the departure and arrival times down to seconds when creating a new journey. Currently the datetime picker only shows up to minutes in create, but to seconds in edit.
 - [ ] When creating a new journey, don't allow the user to input the duration, but instead calculate it from departure and arrival times.
 - [ ] Show the calculated duration to the user when departure or arrival time is changed. Requires Javascript.
 
@@ -85,3 +86,4 @@ Station details:
 
 Station create/edit:
 - [x] Pages for creating/editing stations.
+- [ ] Select operator from a dropdown list or allow the user to create a new one?

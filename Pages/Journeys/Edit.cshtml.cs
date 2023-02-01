@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Solita2023Assignment.Data;
 using Solita2023Assignment.Models;
 
 namespace Solita2023Assignment.Pages.Journeys
@@ -31,13 +26,18 @@ namespace Solita2023Assignment.Pages.Journeys
             }
 
             var journey =  await _context.Journey.FirstOrDefaultAsync(m => m.ID == id);
+
             if (journey == null)
             {
                 return NotFound();
             }
+
             Journey = journey;
-           ViewData["ArrivalStationID"] = new SelectList(_context.Station, "ID", "AddressFI");
-           ViewData["DepartureStationID"] = new SelectList(_context.Station, "ID", "AddressFI");
+
+            SelectList stationList = new SelectList(_context.Station, "ID", "NameFI");
+            ViewData["ArrivalStationID"] = stationList;
+            ViewData["DepartureStationID"] = stationList;
+
             return Page();
         }
 

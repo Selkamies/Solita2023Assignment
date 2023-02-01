@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Solita2023Assignment.Data;
 using Solita2023Assignment.Models;
 
 namespace Solita2023Assignment.Pages.Journeys
@@ -19,7 +14,11 @@ namespace Solita2023Assignment.Pages.Journeys
             _context = context;
         }
 
-      public Journey Journey { get; set; } = default!; 
+
+
+        public Journey Journey { get; set; } = default!; 
+
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,14 +28,21 @@ namespace Solita2023Assignment.Pages.Journeys
             }
 
             var journey = await _context.Journey.FirstOrDefaultAsync(m => m.ID == id);
+
             if (journey == null)
             {
                 return NotFound();
             }
             else 
             {
+                // TODO: I don't thing we would need to do this manually? What is wrong?
+                // TODO: Only select the name, we don't need the whole station data?
+                journey.DepartureStation = _context.Station.Single(s => s.ID == journey.DepartureStationID);
+                journey.ArrivalStation = _context.Station.Single(s => s.ID == journey.ArrivalStationID);
+
                 Journey = journey;
             }
+
             return Page();
         }
     }

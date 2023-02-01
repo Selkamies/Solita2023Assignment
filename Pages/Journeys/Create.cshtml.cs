@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Solita2023Assignment.Models;
-using System.Globalization;
 
 namespace Solita2023Assignment.Pages.Journeys
 {
@@ -20,11 +18,12 @@ namespace Solita2023Assignment.Pages.Journeys
 
         public IActionResult OnGet()
         {
+            // Create a list of stations for selection dropdown. Saved value of chosen station
+            // is the station's database id, and we display the station's name.
             SelectList stations = new SelectList(_context.Station, "ID", "NameFI");
-            ViewData["ArrivalStationID"] = stations;
-            ViewData["DepartureStationID"] = stations;
-            /*ViewData["ArrivalStationID"] = new SelectList(_context.Station, "ID", "NameFI");
-            ViewData["DepartureStationID"] = new SelectList(_context.Station, "ID", "NameFI");*/
+
+            ViewData["ArrivalStations"] = stations;
+            ViewData["DepartureStations"] = stations;
 
             return Page();
         }
@@ -40,19 +39,8 @@ namespace Solita2023Assignment.Pages.Journeys
         public async Task<IActionResult> OnPostAsync()
         {
             // TODO: Calculate duration from departure and arrival times.
-            /*int durationSeconds = (int)this.Journey.ArrivalTime.Subtract(this.Journey.DepartureTime).TotalSeconds;
-            System.Diagnostics.Debug.Print($"Duration in seconds: {durationSeconds}.");
-            // this.Journey.DurationSeconds = durationSeconds;
-
-            // Disable validation for duration field, since it will be calculated.
-            ModelStateEntry? valueToClean = ModelState["DurationSeconds"];
-            if (valueToClean != null && durationSeconds > 10) 
-            { 
-                valueToClean.Errors.Clear(); 
-            }
-
-            ModelState.SetModelValue("DurationSeconds", new ValueProviderResult(durationSeconds.ToString(), CultureInfo.InvariantCulture));
-            */
+            // TODO: Display the save the duration to the ModelState so that it validates.
+            // TODO: Display the calculated duration to the user.
 
             if (!ModelState.IsValid || _context.Journey == null || Journey == null)
             {

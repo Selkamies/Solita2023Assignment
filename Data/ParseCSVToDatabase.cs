@@ -38,15 +38,9 @@ namespace Solita2023Assignment.Data
                 // if the Station database table is empty.
                 if (!context.Station.Any())
                 {
-                    System.Diagnostics.Debug.Print("Starting to parse Stations.");
+                    System.Diagnostics.Debug.Print("\nStarting to parse Stations.\n");
 
-                    StationCSVToDatabase(fileName: StationsCSVFileName, dbContext: context);
-
-                    // Read the database ids (generated during the last step when calling SaveChanges())
-                    // and public ids of the stations, and save them to a dictionary. We will need to 
-                    // find the database id of a station using it's public id when inserting Journeys.
-                    // TODO: Just keep the Station models in memory, there aren't that many of them?
-                    
+                    StationCSVToDatabase(fileName: StationsCSVFileName, dbContext: context);                    
                 }
             }
         }
@@ -60,7 +54,13 @@ namespace Solita2023Assignment.Data
         {
             string filePath = CSVFilePath + fileName;
 
-            System.Diagnostics.Debug.Print($"File path set to {filePath}.");
+            System.Diagnostics.Debug.Print($"\nFile path set to {filePath}.\n");
+
+            if (!File.Exists(filePath))
+            {
+                System.Diagnostics.Debug.Print($"File at {filePath} not found.\n");
+                return;
+            }
 
             StreamReader streamReader = new StreamReader(path: filePath);
             CsvReader csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
@@ -97,7 +97,7 @@ namespace Solita2023Assignment.Data
                 // Only bother reading and inserting Journeys if the Journey table is empty.
                 if (!context.Journey.Any()) 
                 {
-                    System.Diagnostics.Debug.Print("Starting to parse Journeys.");
+                    System.Diagnostics.Debug.Print("\nStarting to parse Journeys.\n");
 
                     // Create a dictionary of Station public ids as key and their database id as value.
                     // Journeys store the public ids of departure and arrival stations, but we want to change
@@ -109,8 +109,6 @@ namespace Solita2023Assignment.Data
                     JourneyCSVToDatabase(JourneysCSV07FileName, context);
                 }
             }
-
-            // TODO: Change the DepartureStationID and ArrivalStationID of each station to database station ids.
         }
 
         public void JourneyCSVToDatabase(string fileName, Solita2023AssignmentContext dbContext)
@@ -133,7 +131,13 @@ namespace Solita2023Assignment.Data
 
             string filePath = CSVFilePath + fileName;
 
-            System.Diagnostics.Debug.Print($"File path set to {filePath}.");
+            System.Diagnostics.Debug.Print($"\nFile path set to {filePath}.\n");
+
+            if (!File.Exists(filePath))
+            {
+                System.Diagnostics.Debug.Print($"File at {filePath} not found.\n");
+                return;
+            }
 
             StreamReader streamReader = new StreamReader(path: filePath);
             CsvReader csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
@@ -147,68 +151,65 @@ namespace Solita2023Assignment.Data
             {
                 Journey? journey = csvReader.GetRecord<Journey>();
 
-                if (journey != null )
-                {
-                    // Don't bother adding journeys with distances less than 10 meters or duration less than 10 seconds.
-                    if (journey.DistanceMeters >= 10 && journey.DurationSeconds >= 10)
-                    {
-                        if (ValidateRow(journey))
-                        {
-                            // Link existing station to the journey's DepatureStation and ArrivalStation properties.
-                            // The journey loaded from .csv file have stored the public ids for these stations, but this
-                            // allows us to change those to use database ids.
-                            if(this.StationIDs.TryGetValue(journey.DepartureStationID, out int foundDepartureStationDBID)
-                               && this.StationIDs.TryGetValue(journey.ArrivalStationID, out int foundArrivalStationDBID))
-                            {
-                                journey.DepartureStationID = foundDepartureStationDBID;
-                                journey.ArrivalStationID = foundArrivalStationDBID;
-                            }
-
-                            else
-                            {
-                                idFailedCounter++;
-                                continue;
-                            }
-
-                            dbContext.Add(journey);
-
-                            successCounter++;
-
-                            if (successCounter % 100000 == 0)
-                            {
-                                totalRows = successCounter + nullCounter + distanceOrDurationFailedCounter + validateFailedCounter + idFailedCounter;
-                                totalFails = totalRows - successCounter;
-
-                                System.Diagnostics.Debug.Print($"Successes: {successCounter}/{totalRows}.");
-                                System.Diagnostics.Debug.Print($"Fails: {totalFails}/{totalRows}.");
-                                System.Diagnostics.Debug.Print($"Null fails: {nullCounter}.");
-                                System.Diagnostics.Debug.Print($"Distance or duration fails: {distanceOrDurationFailedCounter}.");
-                                System.Diagnostics.Debug.Print($"Validation fails: {validateFailedCounter}.");
-                                System.Diagnostics.Debug.Print($"Id fails: {idFailedCounter}.\n");
-
-                                System.Diagnostics.Debug.Print($"Inserting to database...\n");
-                                dbContext.SaveChanges();
-                            }
-                        }
-
-                        else
-                        {
-                            validateFailedCounter++;
-                            continue;
-                        }
-                    } // if (journey.DistanceMeters >= 10 && journey.DurationSeconds >= 10)
-
-                    else
-                    {
-                        distanceOrDurationFailedCounter++;
-                        continue;
-                    }
-                } // if (journey != null)
-
-                else
+                if (journey == null)
                 {
                     nullCounter++;
                     continue;
+                }
+
+                if (journey.DistanceMeters < 10 || journey.DurationSeconds < 10)
+                {
+                    distanceOrDurationFailedCounter++;
+                    continue;
+                }
+
+                if (!ValidateRow(journey))
+                {
+                    validateFailedCounter++;
+                    continue;
+                }
+
+                // Check if there is a match for the public departure and arrival station ids in the dictionary
+                // that matches them with the stations' database ids.
+                if (this.StationIDs.TryGetValue(journey.DepartureStationID, out int foundDepartureStationDBID)
+                    && this.StationIDs.TryGetValue(journey.ArrivalStationID, out int foundArrivalStationDBID))
+                {
+                    // Change the public ids to database ids.
+                    journey.DepartureStationID = foundDepartureStationDBID;
+                    journey.ArrivalStationID = foundArrivalStationDBID;
+                }
+
+                else
+                {
+                    idFailedCounter++;
+                    continue;
+                }
+
+                // Add the row to a pending list that will be inserted to database later.
+                dbContext.Add(journey);
+
+                successCounter++;
+
+                // Every 100 000 successful rows insert them to the database and print success/fail information.
+                // This takes about ~9 minutes and uses ~3GB of memory.
+                // Doing this every 10 000 rows doubles the time to ~20 minutes, and uses ~2GB of memory.
+                // Doing this in one batch after every file (~1 000 000 rows) takes ~8 minutes and uses ~6GB of memory.
+                if (successCounter % 100000 == 0)
+                {
+                    totalRows = successCounter + nullCounter + distanceOrDurationFailedCounter + validateFailedCounter + idFailedCounter;
+                    totalFails = totalRows - successCounter;
+
+                    System.Diagnostics.Debug.Print($"Successes: {successCounter}/{totalRows}.");
+                    System.Diagnostics.Debug.Print($"Fails: {totalFails}/{totalRows}.");
+                    System.Diagnostics.Debug.Print($"Null fails: {nullCounter}.");
+                    System.Diagnostics.Debug.Print($"Distance or duration fails: {distanceOrDurationFailedCounter}.");
+                    System.Diagnostics.Debug.Print($"Validation fails: {validateFailedCounter}.");
+                    System.Diagnostics.Debug.Print($"Id fails: {idFailedCounter}.\n");
+
+                    System.Diagnostics.Debug.Print($"Inserting 100 000 journeys to database...\n");
+
+                    // Applies the changes to the database.
+                    dbContext.SaveChanges();
                 }
             } // while (csvReader.Read())
 
@@ -225,8 +226,7 @@ namespace Solita2023Assignment.Data
             System.Diagnostics.Debug.Print($"Id fails: {idFailedCounter}.");
             System.Diagnostics.Debug.Print($"----- FILE: {fileName} FINISHED! -----\n");
 
-            // TODO: Add stuff to database in smaller batches? Every 10k or 100k rows?
-            System.Diagnostics.Debug.Print($"Inserting the journeys in {fileName} to database.\n");
+            System.Diagnostics.Debug.Print($"Inserting remaining the journeys in {fileName} to database.\n");
             dbContext.SaveChanges();
         } // JourneyCSVToDatabase()
 
@@ -240,8 +240,8 @@ namespace Solita2023Assignment.Data
         /// <returns>True if the row is valid, false if not.</returns>
         public bool ValidateRow(object modelRow)
         {
-            // TODO: Create the list once and just clear it here?
             List<ValidationResult> validationErrors = new List<ValidationResult>();
+
             if (!Validator.TryValidateObject(instance: modelRow,
                                              validationContext: new ValidationContext(modelRow),
                                              validationResults: validationErrors,

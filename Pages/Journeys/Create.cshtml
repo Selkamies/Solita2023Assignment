@@ -16,19 +16,20 @@
 
             <div class="form-group">
                 <label asp-for="Journey.DepartureStation" class="control-label"></label>
-                <select asp-for="Journey.DepartureStationID" class="form-control" asp-items="ViewBag.DepartureStationID">
+                <select asp-for="Journey.DepartureStationID" class="form-control" asp-items="ViewBag.DepartureStations">
                     <option value="">Choose a station</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="Journey.DepartureTime" class="control-label"></label>
-                <input asp-for="Journey.DepartureTime" class="form-control" />
+                <!-- TODO: For some reason asp-format doesn't work. Cannot select seconds. -->
+                <input asp-for="Journey.DepartureTime" class="form-control" /> @*asp-format="{0:dd/MM/yyyy HH:mm:ss}"*@
                 <span asp-validation-for="Journey.DepartureTime" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Journey.ArrivalStation" class="control-label"></label>
-                <select asp-for="Journey.ArrivalStationID" class="form-control" asp-items="ViewBag.ArrivalStationID">
+                <select asp-for="Journey.ArrivalStationID" class="form-control" asp-items="ViewBag.ArrivalStations">
                     <option value="">Choose a station</option>
                 </select>
             </div>
@@ -43,7 +44,7 @@
                 <input asp-for="Journey.DistanceMeters" class="form-control" />
                 <span asp-validation-for="Journey.DistanceMeters" class="text-danger"></span>
             </div>
-            <!-- TODO: Don't allow manual duration, calculate it from departure and arrival times.
+            <!-- TODO: Don't allow manual duration, calculate it from departure and arrival times. readonly class.
                  TODO: Show calculated duration when Departure and Arrival times changed. JavaScript? -->
             <div class="form-group">
                 <label asp-for="Journey.DurationSeconds" class="control-label"></label>

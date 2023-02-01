@@ -40,14 +40,14 @@
 @foreach (var item in Model.Journey) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DepartureStation.AddressFI)
+                @Html.DisplayFor(modelItem => item.DepartureStation.NameFI)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DepartureTime)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.ArrivalStation.AddressFI)
+                @Html.DisplayFor(modelItem => item.ArrivalStation.NameFI)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ArrivalTime)

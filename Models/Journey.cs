@@ -20,11 +20,13 @@ namespace Solita2023Assignment.Models
         /// Date and time of the departure (start of the journey).
         /// </summary>
         [Required, Display(Name = "Departure time"), Column(Order = 1)]
+        //[DataType(DataType.DateTime), DisplayFormat(DataFormatString = "{0:d/M/yyyy HH:mm:s}")]
         public DateTime DepartureTime { get; set; }
         /// <summary>
         /// Date and time of the return (end of the journey).
         /// </summary>
         [Required, Display(Name = "Arrival time"), Column(Order = 2)]
+        //[DataType(DataType.DateTime), DisplayFormat(DataFormatString = "{0:d/M/yyyy HH:mm:s}")]
         public DateTime ArrivalTime { get; set; }
 
         // The station id's are added to the database, but we want to display either only

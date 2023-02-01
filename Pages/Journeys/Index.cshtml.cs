@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Solita2023Assignment.Data;
 using Solita2023Assignment.Models;
 
 namespace Solita2023Assignment.Pages.Journeys
@@ -26,6 +20,7 @@ namespace Solita2023Assignment.Pages.Journeys
             if (_context.Journey != null)
             {
                 // TODO: Add pagination.
+                // Only show the first 100 journeys.
                 Journey = await _context.Journey
                     .Include(j => j.ArrivalStation)
                     .Include(j => j.DepartureStation).Take(100).ToListAsync();
