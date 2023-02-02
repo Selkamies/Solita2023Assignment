@@ -97,20 +97,24 @@ Station create/edit:
 
 ![Journey list image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyList.png?raw=true)
 
-![Journey create image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyCreate.png?raw=true)
-![Journey create select station image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyCreateSelectStation.png?raw=true)
-![Journey create select time image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyCreateSelectTime.png?raw=true)
+<p float="left">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyCreate.png?raw=true" width="200">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyCreateSelectStation.png?raw=true" width="200">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyCreateSelectTime.png?raw=true" width="200">
+</p>
 
-![Journey details image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDetails.png?raw=true)
-![Journey delete image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDelete.png?raw=true)
+<p float="left">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDetails.png?raw=true" width="200">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDelete.png?raw=true" width="200">
+</p>
 
 ### Stations
 
 ![Station list image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationList.png?raw=true)
 
-![Station create image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationCreate.png?raw=true)
-![Station create select station image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationCreateSelectStation.png?raw=true)
-![Station create select time image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationCreateSelectTime.png?raw=true)
+<p float="left">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationCreate.png?raw=true" width="200">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDetails.png?raw=true" width="200">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDelete.png?raw=true" width="200">
+</p>
 
-![Station details image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDetails.png?raw=true)
-![Station delete image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDelete.png?raw=true)
