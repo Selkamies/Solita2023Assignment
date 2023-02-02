@@ -104,8 +104,8 @@ Station create/edit:
 </p>
 
 <p float="left">
-<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDetails.png?raw=true" width="30">
-<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDelete.png?raw=true" width="30">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDetails.png?raw=true" width="30%">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDelete.png?raw=true" width="30%">
 </p>
 
 ### Stations
@@ -113,8 +113,8 @@ Station create/edit:
 ![Station list image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationList.png?raw=true)
 
 <p float="left">
-<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationCreate.png?raw=true" width="30">
-<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDetails.png?raw=true" width="30">
-<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDelete.png?raw=true" width="30">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationCreate.png?raw=true" width="30%">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDetails.png?raw=true" width="30%">
+<img src="https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDelete.png?raw=true" width="30%">
 </p>
 
