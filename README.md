@@ -45,11 +45,12 @@ NuGet packages
 - [ ] Lots of error handling when opening .csv files. Currently the file names and what Models are read from which file are hardcoded.
 - [ ] Column ordering of database tables when the database is created at startup and not by migration.
 - [ ] Instead of just checking if database exists at start, also check if it has any valid data in it.
-- [ ] Tests.
-- [ ] Support for future files containing journey data, don't use hardcoded names.
+- [ ] Support for future monthly files containing journey data, don't use hardcoded names.
 - [ ] Get a list of all rows that failed validation and the reason for failing to check if we discard rows that could be salvaged.
 - [ ] Performance? Threading?
 - [ ] Download the .csv files automatically?
+- [ ] Actual accounts, logins and other security for the database.
+- [ ] Data importing in a separate executable?
 
 ### Journeys
 Journey index:
@@ -87,3 +88,29 @@ Station details:
 Station create/edit:
 - [x] Pages for creating/editing stations.
 - [ ] Select operator from a dropdown list or allow the user to create a new one?
+
+
+
+# Images
+
+### Journeys
+
+![Journey list image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyList.png?raw=true)
+
+![Journey create image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyCreate.png?raw=true)
+![Journey create select station image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyCreateSelectStation.png?raw=true)
+![Journey create select time image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyCreateSelectTime.png?raw=true)
+
+![Journey details image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDetails.png?raw=true)
+![Journey delete image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/JourneyDelete.png?raw=true)
+
+### Stations
+
+![Station list image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationList.png?raw=true)
+
+![Station create image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationCreate.png?raw=true)
+![Station create select station image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationCreateSelectStation.png?raw=true)
+![Station create select time image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationCreateSelectTime.png?raw=true)
+
+![Station details image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDetails.png?raw=true)
+![Station delete image missing](https://github.com/Selkamies/Solita2023Assignment/blob/master/Images/StationDelete.png?raw=true)

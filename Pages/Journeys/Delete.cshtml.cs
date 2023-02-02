@@ -19,8 +19,12 @@ namespace Solita2023Assignment.Pages.Journeys
             _context = context;
         }
 
+
+
         [BindProperty]
-      public Journey Journey { get; set; } = default!;
+        public Journey Journey { get; set; } = default!;
+
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,6 +41,9 @@ namespace Solita2023Assignment.Pages.Journeys
             }
             else 
             {
+                journey.DepartureStation = _context.Station.Single(s => s.ID == journey.DepartureStationID);
+                journey.ArrivalStation = _context.Station.Single(s => s.ID == journey.ArrivalStationID);
+
                 Journey = journey;
             }
             return Page();
